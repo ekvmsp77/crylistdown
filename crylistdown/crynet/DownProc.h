@@ -36,6 +36,8 @@ typedef  struct {
 }t_downproc_list;
 
 
+
+
 class CDownProc
 {
 	list<t_downproc_list>   m_obj; // 다운 완료 되면 지워져야 하기때문에 list 사용
