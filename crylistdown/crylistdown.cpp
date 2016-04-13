@@ -1,6 +1,7 @@
 
 
 #include "stdafx.h"
+#include <conio.h>
 #include "cryutil\Util.h"
 #include "cryutil\Log.h"
 #include "crynet\downproc.h"
@@ -29,8 +30,9 @@ int main()
 	CDownProc  *pdown;
 
 	pdown = CDownProc::GetObj();
-	if (pdown->open_downinfo("uuu1.txt", downfunc) == true) {
-		if (pdown->down_info("종목리스트") == true) {
+	int num = pdown->open_downinfo("uuu1.txt", downfunc);
+	if( num != -1 ){
+		if (pdown->down_info(num) == true) {
 			printf("down start\n");
 			do {
 				pdown->timer();
@@ -43,7 +45,7 @@ int main()
 	else printf("open error\n");
 
 
-
+	_getch();
     return 0;
 }
 

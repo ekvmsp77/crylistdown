@@ -74,7 +74,7 @@ void    CDownProc::timer(void)
 }
 
 
-bool  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
+int  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
 {
 	t_downproc  info;
 	string  temp;
@@ -82,8 +82,8 @@ bool  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
 	FILE  *ps;
 	char  *buffer;
 
-	if (pfname == nullptr) return false;
-	if (fopen_s(&ps, pfname, "rt") != 0) return false;
+	if (pfname == nullptr) return -1;
+	if (fopen_s(&ps, pfname, "rt") != 0) return -1;
 	
 	fseek(ps, 0L, SEEK_END);
 	int flen = ftell(ps);
@@ -98,7 +98,7 @@ bool  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
 
 	if (strcmp(buffer, DOWNPROC_FILE_CODE_STR) != 0){
 		fclose(ps);
-		return false;
+		return -1;
 	}
 
 
@@ -135,20 +135,18 @@ bool  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
 
 	info.func = pf;
 
+	int num = m_info.size();
 	m_info.push_back(info);
 	free(buffer);
-	return true;
+	return num;
 }
 
-bool  CDownProc::down_info(const char *pname)
+bool  CDownProc::down_info(int num)
 {
 	int size = m_info.size();
 
-	for (int n = 0; n < size; n++){
-		if (strcmp(pname, m_info[n].name) != 0) continue;
-		new_obj(&m_info[n]);
+	if( num > -1 &&  size > num ) new_obj(&m_info[num]);
 		return true;
-	}
 
 	return false;
 }
