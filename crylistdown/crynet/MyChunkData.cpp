@@ -185,7 +185,7 @@ bool CMyChunkData::save_data(const char *pdata, unsigned int size,const char *pf
 int   CMyChunkData::get_hexi(const char *pdata, unsigned int size, unsigned int *pout)
 {
 	string so;
-	int  cnt = 0;
+	unsigned int  cnt = 0;
 	int  value = 0;
 
 	if (pdata == nullptr) return 0;
@@ -196,7 +196,7 @@ int   CMyChunkData::get_hexi(const char *pdata, unsigned int size, unsigned int 
 		cnt++;
 		if (*pdata == 0x0D && *(pdata + 1) == 0x0A){
 			cnt++;
-			int cs = so.size();
+			size_t cs = so.size();
 
 			for (int n = 0; n < cs; n++){
 				char c = so[n];

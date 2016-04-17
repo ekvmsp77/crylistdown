@@ -110,15 +110,15 @@ public:
 	void  set_data(const string &data) { m_data = data; }
 	const  string get_name(void) { return m_name; }
 	const  string get_data(void) { return m_data; }
-
+	
 	void  add_attrib(const string &name, const string &val);
 	void  del_attrib(const string &name);
 	void  get_attrib(int num, string &name, string &val); // num번째 데이터 얻기
-	 int  get_attrib_size(void) { return  m_attrib.size(); } // 갯수 리턴
+	size_t  get_attrib_size(void) { return  m_attrib.size(); } // 갯수 리턴
 
 	void  add_child(const CMySimpleXmlElement &relement );
 	void  del_child(const string name);
-	 int  get_child_size(void) { return  m_child.size(); }
+	size_t  get_child_size(void) { return  m_child.size(); }
 
 	list<CMySimpleXmlElement>::iterator  child_begin(void) { return m_child.begin(); }
 	list<CMySimpleXmlElement>::iterator  child_end(void) { return m_child.end(); }

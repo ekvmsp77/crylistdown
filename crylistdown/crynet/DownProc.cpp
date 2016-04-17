@@ -108,7 +108,7 @@ int  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
 		buffer[strlen(buffer) - 1] = 0;
 
 		temp = MYUTIL()->getch_str(':', buffer);
-		int  len = temp.length();
+		size_t  len = temp.length();
 		
 		if (strncmp(buffer, "--", 2) == 0) continue; // ÁÖ¼®
 		if (strcmp(buffer, "end") == 0) break;
@@ -135,15 +135,15 @@ int  CDownProc::open_downinfo(const  char  *pfname, _fdownproc pf)
 
 	info.func = pf;
 
-	int num = m_info.size();
+	size_t num = m_info.size();
 	m_info.push_back(info);
 	free(buffer);
-	return num;
+	return (int)num;
 }
 
 bool  CDownProc::down_info(int num)
 {
-	int size = m_info.size();
+	size_t size = m_info.size();
 
 	if( num > -1 &&  size > num ) new_obj(&m_info[num]);
 		return true;

@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include <malloc.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +19,7 @@ void  insert_attrib(int dep,CMySimpleXmlElement &ele, unsigned int data)
 	  const string tstr = ele.get_name();
       string  src;
 	  char  *psrc;
-	  int  len = tstr.length();
+	  size_t  len = tstr.length();
 	  src.resize( len );
 	  tstr._Copy_s( &src[0], len +1,len);
 

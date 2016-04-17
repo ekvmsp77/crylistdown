@@ -49,7 +49,7 @@ void CMySocketIp::clear(void)
 
 void CMySocketIp::sethostinfo(HOSTENT *phe)
 {
-	int len=0;
+	size_t len=0;
 	t_mysocketip  add;
 
 	len = strlen(phe->h_name);
@@ -187,7 +187,7 @@ unsigned int  CMySocketObj::get_recv_datasize(void)
    len:저장공간의 크기, 
    리턴값은 복사된 데이터 크기
 */
-unsigned int   CMySocketObj::copy_recv_data(char *ptemp, int len)
+unsigned int   CMySocketObj::copy_recv_data(char *ptemp, unsigned int len)
 {
 	unsigned int  size=0;
 
@@ -359,9 +359,9 @@ bool  CMySocket::connect_http(SOCKET sc,const char *phost_name)
 }
 
 
-bool  CMySocket::send_http(SOCKET sc,const char *pdata, int data_len)
+bool  CMySocket::send_http(SOCKET sc,const char *pdata, size_t data_len)
 {
-	int rs = send(sc,pdata,data_len,0);
+	int rs = send(sc,pdata,(int)data_len,0);
 	if( rs ==  SOCKET_ERROR ) {
 		char  str[50];
 		int r = WSAGetLastError();
@@ -523,7 +523,7 @@ void   http_thread(void *pv)
 	myhttp.make_def_send_header(smode.data(), str.data() , &header);
 
 	const char *psheader = myhttp.get_send_header_string();
-	int len = strlen(psheader);
+	size_t len = strlen(psheader);
 
 	// 접속
 	if (pobj->connect_http(sc, shost.data()) == false){

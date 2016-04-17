@@ -12,7 +12,7 @@ void  downfunc(unsigned int num);
 void  downfunc(unsigned int num)
 {
 	unsigned int  dsize = CMySocket::GetMySocket()->table_getdownsize(num);
-	char *pdata;
+	//char *pdata;
 
 	if (dsize == 0) {
 		printf("down size == 0\n");

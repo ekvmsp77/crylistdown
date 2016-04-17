@@ -17,7 +17,7 @@ public:
 	void  addstr(wstring str);
 	void  save(void);
 	const char *getlog(int  num) const { return m_strlist[num].data();  }
-	int   getlogsize(void) { return m_strlist.size(); }
+	size_t   getlogsize(void) { return m_strlist.size(); }
 
 	const char *getread(void); // 로그 기록 읽기
 

@@ -57,7 +57,7 @@ public:
 	bool  down_info(int num); // 파일로 읽어들인  다운정보로  다운 시작한다.   pstr  == name
 	int  search_data_ctype(const char *pname, const char *ps); //  보류!! 다운 정보 data에서 해당 문자열을 찾는다. return : 위치값
 
-	int  check_objdown(void) { return m_obj.size();  } // 현재 다운중인 오브젝트가 있는지 체크한다. , 있다면 > 0 , 없다면 0
+	size_t  check_objdown(void) { return m_obj.size();  } // 현재 다운중인 오브젝트가 있는지 체크한다. , 있다면 > 0 , 없다면 0
 
 	static CDownProc *GetObj(void)
 	{

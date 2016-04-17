@@ -95,7 +95,7 @@ public:
 	void sethostinfo(HOSTENT *phe);
 
 	char *gethostname(void){ return m_pname; }
-	short getipnum(void){ return m_addr.size(); } // ip 갯수
+	size_t getipnum(void){ return m_addr.size(); } // ip 갯수
 	short getiplen(void){ return m_len; } // ip 길이, 4 or 6
 	void  getip(t_mysocketip &add, int num ); // num번째 아이피번호를 얻어온다.
 
@@ -143,7 +143,7 @@ public:
 	bool  setdown_data(const char *pdata, unsigned int size); 
 	bool  add_recv_data(const char *pdata, unsigned int size);
 	unsigned int  get_recv_datasize(void);
-	unsigned int  copy_recv_data(char *ptemp, int len);
+	unsigned int  copy_recv_data(char *ptemp, unsigned int len);
 	const char *get_recv_dataptr(void) const { return m_recv_data.pdata;  }
 
 	bool  save_recv_chunkdata(const char *pfname);
@@ -212,7 +212,7 @@ public:
 
 	 
 	  bool  connect_http(SOCKET sc,const char *phost_name);
-	  bool  send_http(SOCKET sc,const char *pdata, int data_len);
+	  bool  send_http(SOCKET sc,const char *pdata, size_t data_len);
 
 
 	   int  thread_down_http(const char *phost_name, const char *purl, const char *pstr, bool mode, t_mysocket_http_header  *ph = nullptr);

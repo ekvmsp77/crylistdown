@@ -56,16 +56,16 @@ void  CUtil::getcurtime(char *pout,int len, int opt)
 void  CUtil::cnv_outchar(const wchar_t  *pin, char  *pout,int len)
 {
 	memset(pout, 0, sizeof(char)* len);
-	WideCharToMultiByte(CP_ACP, 0, pin, wcslen(pin),pout, len,NULL,NULL );
+	WideCharToMultiByte(CP_ACP, 0, pin, (int)wcslen(pin),pout, len,NULL,NULL );
 }
 
 void  CUtil::cnv_outwchar_t(const char  *pin, wchar_t  *pout,int len)
 {
 	memset(pout, 0, sizeof(wchar_t)* len);
-	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pin, strlen(pin), pout, len);
+	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pin, (int)strlen(pin), pout, len);
 }
 
-unsigned int CUtil::strhash(const char *pstr)
+size_t CUtil::strhash(const char *pstr)
 {
 	hash<string>  hs;
 
@@ -205,7 +205,7 @@ bool  CUtil::get_string_word(const char *pin, vector<string> *pout,const char  *
 			if (temp.size() > 0){
 				// 단어의 앞뒤 공백을 없애고 복사한다.
 				string  ts;
-				unsigned int sn = 0, en=temp.size()-1;
+				size_t sn = 0, en=temp.size()-1;
 				while (sn < (temp.size()-1) && temp[sn] == ' ') sn++;
 				while (en >= 0 && temp[en] == ' ') en--;
 				if (sn < en){
@@ -224,7 +224,7 @@ bool  CUtil::get_string_word(const char *pin, vector<string> *pout,const char  *
 
 	if (temp.size() > 0){
 		string  ts;
-		unsigned int sn = 0, en = temp.size() - 1;
+		size_t sn = 0, en = temp.size() - 1;
 		while (sn < (temp.size() - 1) && temp[sn] == ' ') sn++;
 		while (en >= 0 && temp[en] == ' ') en--;
 		if (sn < en){
@@ -260,7 +260,7 @@ bool  CUtil::comp_ch(const char sc, const char *ptc,int ntc)
  문자열 비교 함수, 알파벳의 경우 대소문자를 구분하지 않는다.
  ex)  "abc123" == "ABC123"
 */
-bool  CUtil::comp_str(const char *psrc, const char *pds, int len)
+bool  CUtil::comp_str(const char *psrc, const char *pds, size_t len)
 {	
 
 	for (int n = 0; n < len; n++){

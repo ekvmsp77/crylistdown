@@ -80,7 +80,7 @@ const char  *CMyHttpUtil::get_http_ver(void)
 */
 void CMyHttpUtil::add_send_header(const char *pstr)
 {
-	int slen = strlen(pstr);
+	size_t slen = strlen(pstr);
 
 
 	m_str_send_header += pstr;
@@ -121,7 +121,7 @@ void CMyHttpUtil::add_send_header(const char *pstr)
    out) pout = "%EC%82%BC%EA%B5%AD%EC%A7%80"
         만약, pout이 null이면 변환될 문자열의 길이값이 리턴된다. x3
 */
-int  CMyHttpUtil::util_string_hex(const char *pstr, char *pout)
+size_t  CMyHttpUtil::util_string_hex(const char *pstr, char *pout)
 {
 	const char hext[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	int n=0,i=0;
@@ -142,8 +142,8 @@ int  CMyHttpUtil::util_string_hex(const char *pstr, char *pout)
 
 void  CMyHttpUtil::set_url_abs(const char *purl, const char *phost)
 {
-	int len = strlen(purl) + strlen(phttpver);
-	int hlen = strlen(phost)+strlen(shostkey);
+	size_t len = strlen(purl) + strlen(phttpver);
+	size_t hlen = strlen(phost)+strlen(shostkey);
 
 	m_url_type = true;
 
@@ -159,7 +159,7 @@ void  CMyHttpUtil::set_url_abs(const char *purl, const char *phost)
 
 void  CMyHttpUtil::set_url_absolute(const char *purl)
 {
-	int len = strlen(purl) + strlen(phttpver);
+	size_t len = strlen(purl) + strlen(phttpver);
 	m_url_type = false;
 
 	if( m_pstr_url != nullptr ) free( m_pstr_url );
@@ -211,14 +211,14 @@ bool  CMyHttpUtil::make_def_send_header(const char  *psmode, const char  *pdata,
 	//add_send_header("Cookie: JSESSIONID=OGguaPvV2A5cibabROiwNzBADb7R33QqCyVEjalbOJUVFISPSc1iuZTcA5dFXbzk\r\n");
 
 	if(  strcmp(psmode,"POST") == 0  ){
-		int  len = strlen(pdata);
+		size_t  len = strlen(pdata);
 		char  buf[50];
 		if( *pdata != 0 ){
 
 			if( ph->Content_Type.empty() == true ) add_send_header("Content-Type: text/xls;charset=UTF-8\r\n");
 			else add_send_header(((std::string)("Content-Type: ") + ph->Content_Type.data()).data());
 
-			sprintf_s(buf,49,"Content-Length: %d\r\n", len);
+			sprintf_s(buf,49,"Content-Length: %d\r\n", (int)len);
 			add_send_header(buf);
 			add_send_header("\r\n");
 			add_send_header(pdata);
@@ -276,7 +276,7 @@ bool  CMyHttpUtil::set_recv_data_parseing(const char *pdata, int size)
 	const char stc[] = { ':', ';', '=', '\t', 0x0D, 0x0A, 0 };
 	MYUTIL()->get_string_word(pdata, &swords, stc, _countof(stc));
 
-	int  cnt = swords.size();
+	size_t  cnt = swords.size();
 	bool  swhttp = false;
 	int  n = 0;
 
@@ -328,7 +328,7 @@ bool  CMyHttpUtil::set_recv_data_parseing(const char *pdata, int size)
 		for (n = 0; n < 4; n++)crlf[n] = *(pdata + cnt + n);
 		cnt++;
 		if (crlf[0] == 0x0d && crlf[1] == 0x0a && crlf[2] == 0x0d && crlf[3] == 0x0a){
-			m_recv_info.header_size = cnt + 3;
+			m_recv_info.header_size = (unsigned int)(cnt + 3);
 			return true;
 		}
 	} while (cnt < size);

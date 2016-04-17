@@ -51,7 +51,7 @@ void  CLog::save(void)
 
 	if (fopen_s(&pf, "cry5log.txt", "wt") != 0 ) return;
 
-	int cnt = m_strlist.size();
+	size_t cnt = m_strlist.size();
 	for( int n=0; n < cnt; n++ ){
 		fprintf(pf, "%s\n", m_strlist[n].data() );
 	}
